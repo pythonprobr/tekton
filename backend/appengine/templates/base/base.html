@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{% block title %}Tekton Fullstrack{% endblock %}</title>
+    <title>{% block title %}Loja Python Pro{% endblock %}</title>
     <!-- Bootstrap -->
 
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -48,7 +48,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">Tekton</a>
+            <a href="/" class="navbar-brand">Loja PyPro</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -56,7 +56,13 @@
                     <li {{ 'class="active"' | safe if tab=='COURSES' }}><a href="/courses">{% trans %}Courses{% endtrans %}</a>
                     </li>
                     {% if _logged_user and 'ADMIN' in _logged_user.groups %}
-                        <li {{ 'class="active"' | safe if tab=='ADMIN' }}><a href="/admin">{% trans %}Admin{% endtrans %}</a>
+                        <li {{ 'class="active"' | safe if tab=='ADMIN' }}>
+                            <a href="/admin">{% trans %}Admin{% endtrans %}</a>
+                        </li>
+                    {% endif %}
+                    {% if _logged_user and ('ADMIN' in _logged_user.groups or 'MANAGER' in _logged_user.groups) %}
+                        <li {{ 'class="active"' | safe if tab=='CATEGORIAS' }}>
+                            <a href="/categorias">Categorias</a>
                         </li>
                     {% endif %}
                 {% endmacro %}
@@ -96,9 +102,7 @@
 {% block body %}{% endblock %}
 <div class="footer">
     <div class="container">
-        <p class="text-muted text-right">Tekton Full-Stack: <a target="_blank"
-                                                               href="https://github.com/renzon/tekton-fullstack">Git
-            Hub</a></p>
+        <p class="text-muted text-right">Loja Python Pro. Todos direitos não reservados</p>
     </div>
 </div>
 </body>

@@ -1,46 +1,76 @@
 {% extends 'base/base.html' %}
-{% block css %}
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-social.css"/>
-    <link rel="stylesheet" href="/static/font-awesome-4.2.0/css/font-awesome.min.css"/>
-{% endblock %}
+
 {% block body %}
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Tekton</h1>
-                <p>{% trans %}A Full-Stack project for Google App Engine{% endtrans %}</p>
-            </div>
-        </div>
-        <br/>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="well">
-                    <h2>{% trans %}Create CRUD code on
-                        <a href="https://cloud.google.com/products/app-engine/">App Engine</a>{% endtrans %}
-                    </h2>
-                    <br/>
-
-                    <p>
-                        <a href="/courses" class="btn btn-primary"></i>{% trans %} Check Courses App
-                            Out{% endtrans %} &raquo;</a>
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="well">
-                    <h2>{% trans %}Tekton is open source.{% endtrans %}</h2>
-                    <br/>
-
-                    <p>
-                        <a href="https://github.com/renzon/tekton-fullstack" class="btn btn-social btn-github"><i
-                                class="fa fa-github"></i>{% trans %}Check Git Hub Out{% endtrans %} &raquo;</a>
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-6 col-md-offset-3">
-                <iframe width="560" height="315" src="//www.youtube.com/embed/videoseries?list=PLA05yVJtRWYRGIeBxag8uT-3ftcMVT5oF" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<h1 class="text-center">
+				Loja Python Pro, bem vindo!
+			</h1>
+			<div class="carousel slide" id="carousel-705443">
+				<ol class="carousel-indicators">
+					<li class="active" data-slide-to="0" data-target="#carousel-705443">
+					</li>
+					<li data-slide-to="1" data-target="#carousel-705443">
+					</li>
+					<li data-slide-to="2" data-target="#carousel-705443">
+					</li>
+				</ol>
+				<div class="carousel-inner">
+					<div class="item active">
+						<img alt="" src="http://lorempixel.com/1600/500/sports/1" />
+						<div class="carousel-caption">
+							<h4>
+								Compre tudo Barato
+							</h4>
+							<p>
+								Melhores preços do Brasil!
+							</p>
+						</div>
+					</div>
+					<div class="item">
+						<img alt="" src="http://lorempixel.com/1600/500/sports/2" />
+						<div class="carousel-caption">
+							<h4 class="text-center">
+								Second Thumbnail label
+							</h4>
+							<p>
+								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+							</p>
+						</div>
+					</div>
+					<div class="item">
+						<img alt="" src="http://lorempixel.com/1600/500/sports/3" />
+						<div class="carousel-caption">
+							<h4 class="text-center">
+								Third Thumbnail label
+							</h4>
+							<p>
+								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+							</p>
+						</div>
+					</div>
+				</div> <a class="left carousel-control" href="#carousel-705443" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#carousel-705443" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+			</div>
+			<div class="row clearfix">
+				<div class="col-md-6 column">
+					<h3>
+						h3. Lorem ipsum dolor sit amet.
+					</h3>
+					<p>
+						Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id commodo imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, posuere nec lacus. <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.</small>
+					</p>
+				</div>
+				<div class="col-md-6 column">
+					<h3>
+						h3. Lorem ipsum dolor sit amet.
+					</h3>
+					<p>
+						Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id commodo imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, posuere nec lacus. <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.</small>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
