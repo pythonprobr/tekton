@@ -1,0 +1,31 @@
+{% extends 'produtos/produto_base.html' %}
+{% block body %}
+  {% set produto=produto or None %}
+  {% set errors=errors or None %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <br/>
+
+        <div class="well">
+          <h1 class="text-center">{% trans %}Produto Form{% endtrans %}</h1>
+
+          <form action="{{ save_path }}" method="post" role="form">
+            {{ csrf_input() }}
+            Categorias:
+            <select name="categoria">
+              {% for cat in categorias %}
+                <option value="{{ cat.key.id() }}">{{ cat.nome }}</option>
+              {% endfor %}
+            </select>
+            {{ form_input(_('Titulo'),'titulo',produto.titulo,errors.titulo) }}
+            {{ form_input(_('Preco'),'preco',produto.preco,errors.preco) }}
+            {{ form_input(_('Descricao'),'descricao',produto.descricao,errors.descricao) }}
+            <button type="submit" class="btn btn-success">{% trans %}Save{% endtrans %}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

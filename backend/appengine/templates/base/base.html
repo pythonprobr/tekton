@@ -51,12 +51,12 @@
             <a href="/" class="navbar-brand">Loja PyPro</a>
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                {% macro select_tab(tab='') %}
-                    <li {{ 'class="active"' | safe if tab=='COURSES' }}><a href="/courses">{% trans %}Courses{% endtrans %}</a>
-                    </li>
-                    {% if _logged_user and 'ADMIN' in _logged_user.groups %}
-                        <li {{ 'class="active"' | safe if tab=='ADMIN' }}>
+          <ul class="nav navbar-nav">
+            {% macro select_tab(tab='') %}
+              <li {{ 'class="active"' | safe if tab=='PRODUTOS' }}><a href="/produtos">Produtos</a>
+              </li>
+              {% if _logged_user and 'ADMIN' in _logged_user.groups %}
+                      <li {{ 'class="active"' | safe if tab=='ADMIN' }}>
                             <a href="/admin">{% trans %}Admin{% endtrans %}</a>
                         </li>
                     {% endif %}
