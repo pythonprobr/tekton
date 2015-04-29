@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
-from gaegraph.business_base import NodeSearch, DeleteNode
-from produto_app.produto_commands import ListProdutoCommand, SaveProdutoCommand, UpdateProdutoCommand, ProdutoForm,\
-    GetProdutoCommand, DeleteProdutoCommand
+from produto_app.produto_commands import ListProdutoCommand, UpdateProdutoCommand, ProdutoForm,\
+    GetProdutoCommand, DeleteProdutoCommand, ListarProdutosPorCategoria, SalvarProdutoAtreladoACategoria
 
 
-def save_produto_cmd(**produto_properties):
+def save_produto_cmd(categoria, **produto_properties):
     """
     Command to save Produto entity
     :param produto_properties: a dict of properties to save on model
     :return: a Command that save Produto, validating and localizing properties received as strings
     """
-    return SaveProdutoCommand(**produto_properties)
+    return SalvarProdutoAtreladoACategoria(categoria, **produto_properties)
 
 
 def update_produto_cmd(produto_id, **produto_properties):
@@ -58,3 +57,6 @@ def delete_produto_cmd(produto_id):
     """
     return DeleteProdutoCommand(produto_id)
 
+
+def listar_produtos_por_categoria_cmd(categoria):
+    return ListarProdutosPorCategoria(categoria)

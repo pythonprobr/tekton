@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
+from categoria_app import categoria_facade
 from config.template_middleware import TemplateResponse
 from gaebusiness.business import CommandExecutionException
 from tekton import router
@@ -11,7 +12,10 @@ from tekton.gae.middleware.redirect import RedirectResponse
 
 @no_csrf
 def index():
-    return TemplateResponse({'save_path': router.to_path(save)}, 'produtos/produto_form.html')
+    listar_categorias_cmd = categoria_facade.list_categorias_cmd()
+    ctx = {'save_path': router.to_path(save),
+           'categorias': listar_categorias_cmd()}
+    return TemplateResponse(ctx, 'produtos/produto_form.html')
 
 
 def save(**produto_properties):

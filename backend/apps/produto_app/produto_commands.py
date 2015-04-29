@@ -2,9 +2,8 @@
 from __future__ import absolute_import, unicode_literals
 from gaebusiness.gaeutil import SaveCommand, ModelSearchCommand
 from gaeforms.ndb.form import ModelForm
-from gaegraph.business_base import UpdateNode, NodeSearch, DeleteNode
-from produto_app.produto_model import Produto
-
+from gaegraph.business_base import UpdateNode, NodeSearch, DeleteNode, DestinationsSearch, CreateSingleOriginArc
+from produto_app.produto_model import Produto, CategoriaParaProduto
 
 
 class ProdutoSaveForm(ModelForm):
@@ -35,6 +34,13 @@ class DeleteProdutoCommand(DeleteNode):
 class SaveProdutoCommand(SaveCommand):
     _model_form_class = ProdutoSaveForm
 
+class SalvarProdutoAtreladoACategoria(CreateSingleOriginArc):
+    arc_class = CategoriaParaProduto
+
+    def __init__(self, categoria, **produto_propriedades):
+        destination = SaveProdutoCommand(**produto_propriedades)
+        super(SalvarProdutoAtreladoACategoria, self).__init__(categoria, destination)
+
 
 class UpdateProdutoCommand(UpdateNode):
     _model_form_class = ProdutoSaveForm
@@ -43,4 +49,7 @@ class UpdateProdutoCommand(UpdateNode):
 class ListProdutoCommand(ModelSearchCommand):
     def __init__(self):
         super(ListProdutoCommand, self).__init__(Produto.query_by_creation())
+
+class ListarProdutosPorCategoria(DestinationsSearch):
+    arc_class = CategoriaParaProduto
 
