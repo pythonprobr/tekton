@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 from produto_app.produto_commands import ListProdutoCommand, UpdateProdutoCommand, ProdutoForm,\
-    GetProdutoCommand, DeleteProdutoCommand, ListarProdutosPorCategoria, SalvarProdutoAtreladoACategoria
+    GetProdutoCommand, ListarProdutosPorCategoria, SalvarProdutoAtreladoACategoria, \
+    DeletarProdutosEArcoParaCategoria
 
 
 def save_produto_cmd(categoria, **produto_properties):
@@ -55,7 +56,7 @@ def delete_produto_cmd(produto_id):
     :param produto_id: produto's id
     :return: Command
     """
-    return DeleteProdutoCommand(produto_id)
+    return DeletarProdutosEArcoParaCategoria(produto_id)
 
 
 def listar_produtos_por_categoria_cmd(categoria):

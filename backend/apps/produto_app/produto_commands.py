@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
+from gaebusiness.business import CommandParallel
 from gaebusiness.gaeutil import SaveCommand, ModelSearchCommand
 from gaeforms.ndb.form import ModelForm
-from gaegraph.business_base import UpdateNode, NodeSearch, DeleteNode, DestinationsSearch, CreateSingleOriginArc
+from gaegraph.business_base import UpdateNode, NodeSearch, DeleteNode, DestinationsSearch, CreateSingleOriginArc, \
+    DeleteArcs
 from produto_app.produto_model import Produto, CategoriaParaProduto
 
 
@@ -11,8 +13,8 @@ class ProdutoSaveForm(ModelForm):
     Form used to save and update Produto
     """
     _model_class = Produto
-    _include = [Produto.titulo, 
-                Produto.preco, 
+    _include = [Produto.titulo,
+                Produto.preco,
                 Produto.descricao]
 
 
@@ -31,8 +33,20 @@ class DeleteProdutoCommand(DeleteNode):
     _model_class = Produto
 
 
+class DeletarCategoriaParaProduto(DeleteArcs):
+    arc_class = CategoriaParaProduto
+
+
+class DeletarProdutosEArcoParaCategoria(CommandParallel):
+    def __init__(self, produto):
+        delete_produto = DeleteProdutoCommand(produto)
+        deletar_arco = DeletarCategoriaParaProduto(destination=produto)
+        super(DeletarProdutosEArcoParaCategoria, self).__init__(delete_produto, deletar_arco)
+
+
 class SaveProdutoCommand(SaveCommand):
     _model_form_class = ProdutoSaveForm
+
 
 class SalvarProdutoAtreladoACategoria(CreateSingleOriginArc):
     arc_class = CategoriaParaProduto
@@ -48,7 +62,8 @@ class UpdateProdutoCommand(UpdateNode):
 
 class ListProdutoCommand(ModelSearchCommand):
     def __init__(self):
-        super(ListProdutoCommand, self).__init__(Produto.query_by_creation())
+        super(ListProdutoCommand, self).__init__(Produto.query_by_creation_desc())
+
 
 class ListarProdutosPorCategoria(DestinationsSearch):
     arc_class = CategoriaParaProduto

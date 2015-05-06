@@ -15,7 +15,7 @@
             Categorias:
             <select name="categoria">
               {% for cat in categorias %}
-                <option value="{{ cat.key.id() }}">{{ cat.nome }}</option>
+                <option value="{{ cat.key.id() }}" >{{ cat.nome }}</option>
               {% endfor %}
             </select>
             {{ form_input(_('Titulo'),'titulo',produto.titulo,errors.titulo) }}
