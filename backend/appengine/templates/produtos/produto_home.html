@@ -8,15 +8,17 @@
         <hr/>
         <h2>Lista de
           Produtos {{ 'da Categoria ' + categoria.nome if categoria  else 'de nenhuma categoria especifica' }}</h2>
-      <form action="{{ busca_path }}" method="get">
-        <select name="categoria">
-        <option value="">Nenhuma</option>
-          {% for cat in categorias %}
-            <option value="{{ cat.key.id() }}" {{ 'selected="selected"' | safe if categoria==cat }}>{{ cat.nome }}</option>
-          {% endfor %}
-        </select>
-        <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-search"></i></button>
-      </form>
+
+        <form action="{{ busca_path }}" method="get">
+          <select name="categoria">
+            <option value="">Nenhuma</option>
+            {% for cat in categorias %}
+              <option
+                  value="{{ cat.key.id() }}" {{ 'selected="selected"' | safe if categoria==cat }}>{{ cat.nome }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-search"></i></button>
+        </form>
         <table class="table table-striped table-hover">
           <thead>
           <tr>
@@ -31,8 +33,12 @@
           <tbody>
           {% for produto in produtos %}
             <tr>
-              <td><a href="{{ produto.edit_path }}" class="btn btn-success btn-sm"><i
-                  class="glyphicon glyphicon-pencil"></i></a></td>
+              <td>
+                <a href="{{ produto.edit_path }}" class="btn btn-primary btn-sm"><i
+                    class="glyphicon glyphicon-pencil"></i></a>
+                <a href="{{ produto.pay_path }}" class="btn btn-success btn-sm"><i
+                    class="glyphicon glyphicon-usd"></i></a>
+              </td>
               <td>{{ produto.id }}</td>
               <td>{{ produto.creation }}</td>
               <td>{{ produto.titulo }}</td>

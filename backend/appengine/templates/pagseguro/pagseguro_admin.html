@@ -1,0 +1,21 @@
+{% extends 'pagseguro/pagseguro_base.html' %}
+{% block body %}
+  {% set errors=errors or None %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="well">
+          <h1 class="text-center">Dados da App do Pagseguro</h1>
+
+          <form action="{{ save_path }}" method="post" role="form">
+            {{ csrf_input() }}
+
+            {{ form_input('Email','email',app.email,errors.email) }}
+            {{ form_input('Token','token',app.token,errors.token) }}
+            <button type="submit" class="btn btn-success">Salvar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
