@@ -1,0 +1,32 @@
+{% extends 'pagseguro/pagseguro_base.html' %}
+{% block body %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Historico do Pagamento {{ pagamento.id }}</h1>
+        <h2>Cliente</h2>
+        Nome: {{ pagamento.owner.name }} </br>
+        Email: {{ pagamento.owner.email }}
+        <h2>Resumo</h2>
+        Código do Pagaseguro: {{ pagamento.code }} </br>
+        Líquido (após taxa do Pagaseguro): {{ pagamento.net_amount }} </br>
+        Líquido (após taxa do Pagaseguro): {{ pagamento.status }} </br>
+        Criação: {{ pagamento.creation }} </br>
+        Última notificação do Pagseguro: {{ pagamento['update'] }}
+        <h2>Itens comprados</h2>
+        <ol>
+          {% for i in pagamento.pay_items %}
+            <li>{{ i.description }}, Valor Unitário: {{ i.price }}, Quantidade: {{ i.quantity }}, Referencia: {{ i.reference }}</li>
+          {% endfor %}
+        </ol>
+        <h2>Histórico</h2>
+        <ol>
+          {% for log in pagamento.logs %}
+            <li>{{ log.creation }}:{{ log.status }}</li>
+          {% endfor %}
+        </ol>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

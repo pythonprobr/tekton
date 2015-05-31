@@ -6,7 +6,7 @@ from config.template_middleware import TemplateResponse
 from gaebusiness.business import CommandExecutionException
 from gaecookie.decorator import no_csrf
 from gaepagseguro import pagseguro_facade
-from gaepermission.decorator import login_required, permissions
+from gaepermission.decorator import login_required, permissions, login_not_required
 from permission_app.model import ADMIN
 from produto_app import produto_facade
 import settings
@@ -45,6 +45,14 @@ def redirecionar(_logged_user, produto_id, **kwargs):
     return RedirectResponse(url)
 
 
+# Kwargs usando pq pagseguro manda parametros extras. Veja doc: https://pagseguro.uol.com.br/v3/guia-de-integracao/api-de-notificacoes.html
+@login_not_required
+@no_csrf
+def notificacao(notificationCode, **kwargs):
+    logging.critical('Notificacao do Pagseguro %s' % notificationCode)
+    pagseguro_facade.payment_notification(notificationCode).execute()
+
+
 @login_required
 @no_csrf
 def ok(*args, **kwargs):
@@ -53,8 +61,34 @@ def ok(*args, **kwargs):
 
 @login_required
 @no_csrf
+def historico(pagamento_id):
+    pagamento = pagseguro_facade.get_payment(pagamento_id, relations=['owner', 'pay_items', 'logs'])()
+    form = pagseguro_facade.payment_form()
+
+    def criar_pagamento_dicionario(form, pagamento):
+        dct = form.fill_with_model(pagamento)
+        dct['logs'] = pagamento.logs
+        return dct
+
+    ctx = {'pagamento': criar_pagamento_dicionario(form, pagamento)}
+    return TemplateResponse(ctx, 'pagseguro/pagseguro_historico.html')
+
+
+@login_required
+@no_csrf
 def index():
     ctx = {'admin_path': to_path(admin)}
+    payments_cmd = pagseguro_facade.search_all_payments(relations=['owner', 'pay_items'])
+    pagtos = payments_cmd()
+    form = pagseguro_facade.payment_form()
+    historico_base = to_path(historico)
+
+    def criar_dicionario_pagamento(pagamento):
+        dct = form.fill_with_model(p)
+        dct['historico_path'] = to_path(historico_base, dct['id'])
+        return dct
+
+    ctx['pagamentos'] = [criar_dicionario_pagamento(p) for p in pagtos]
     return TemplateResponse(ctx, 'pagseguro/pagseguro_home.html')
 
 
