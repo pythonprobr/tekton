@@ -1,0 +1,35 @@
+{% extends 'pagseguro/pagseguro_base.html' %}
+{% block body %}
+  {% set errors=errors or None %}
+  {% set dados=dados or None %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="well">
+          <h1 class="text-center">Dados de Pagamento</h1>
+          {{ produto.titulo }} - R$ {{ produto.preco }}
+          <form action="{{ save_path }}" method="post" role="form">
+            {{ csrf_input() }}
+            <input type="hidden" name="produto_id" value="{{ produto.key.id() }}"/>
+            <fieldset>
+              <legend>Dados Pessoais</legend>
+              {{ form_input('Nome Completo','client_name',dados.client_name or _logged_user.name,errors.name) }}
+              {{ form_input('Email','client_email',dados.client_email or _logged_user.email,errors.email) }}
+            </fieldset>
+            <fieldset>
+              <legend>Endereço</legend>
+              {{ form_input('Rua','street',dados.street,errors.street) }}
+              {{ form_input('Número','number',dados.number,errors.number) }}
+              {{ form_input('Bairro','quarter',dados.quarter,errors.quarter) }}
+              {{ form_input('CEP','postalcode',dados.postalcode,errors.postalcode) }}
+              {{ form_input('Cidade','town',dados.town,errors.town) }}
+              {{ form_input('Estado','state',dados.state,errors.state) }}
+              {{ form_input('Complemento','complement',dados.complement,errors.complement) }}
+            </fieldset>
+            <button type="submit" class="btn btn-success">Salvar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

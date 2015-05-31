@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from categoria_app import categoria_facade
 from config.template_middleware import TemplateResponse
 from gaebusiness.business import CommandParallel
+from routes.pagseguro import form
 from tekton import router
 from gaecookie.decorator import no_csrf
 from produto_app import produto_facade
@@ -32,12 +33,14 @@ def index(categoria=''):
     produtos = list_produtos_cmd.result
     edit_path = router.to_path(edit)
     delete_path = router.to_path(delete)
+    pay_path = router.to_path(form)
     produto_form = produto_facade.produto_form()
 
     def localize_produto(produto):
         produto_dct = produto_form.fill_with_model(produto)
         produto_dct['edit_path'] = router.to_path(edit_path, produto_dct['id'])
         produto_dct['delete_path'] = router.to_path(delete_path, produto_dct['id'])
+        produto_dct['pay_path'] = router.to_path(pay_path, produto_id=produto_dct['id'])
         return produto_dct
 
     localized_produtos = [localize_produto(produto) for produto in produtos]
